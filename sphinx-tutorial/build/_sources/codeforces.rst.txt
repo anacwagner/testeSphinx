@@ -1,0 +1,56 @@
+LeetCode
+========
+
+Happy Number
+------------
+
+How to Approach such Problem
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+`Happy number <https://leetcode.com/problems/happy-number/>`_ is a medium leetcode problem, 
+please invest some time in understanding the problem at leetcode.
+
+
+If we go for a recursive approach, we need a base case .. what if we have 10 :math:`1^2+0^2=1`
+so in this case, we will get 1 .. what if we have 13, well that means we need to sum the square of 1 and the square 
+of 3 which will add up to 10 which can get us to the base case
+
+.. math::
+
+    1^2 + 3^2 = 10
+
+.. math::
+
+    1^2 + 0^2 = 1
+    
+So we need a way to get each digit separately and square that digit and then sum the two .. 
+we can get the right number (digit) by calculating the remainder and we can get the left number 
+(digit) by integer divisionBut there is a probability to see more than two-digit number, 
+so we need to consider each digit in that number and loop through it which can be done by 
+seeing this number as a string which we can loop through
+
+Here is my implementations in Python and Javascript:
+
+Python
+""""""
+.. code-block:: python
+
+    def isHappy(n):
+        if len(str(n)) == 2: 
+            return 1 if n == 1 or n == 7 else 0
+        if len(str(n)) == 2:
+            rightnum = n % 10
+            leftnum = n // 10
+            return isHappy(leftnum ** 2 + rightnum ** 2)
+        else:
+            s = 0
+            for i in range(len(str(n))):
+                s += int(str(n)[i])**2
+            return isHappy(s) 
+
+    if __name__ == "__main__":
+        n = 19
+        print(isHappy(n))
+
+
+
